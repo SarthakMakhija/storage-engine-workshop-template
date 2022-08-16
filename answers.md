@@ -1,4 +1,4 @@
-###WAL
+### WAL
 
 - Assignment:WAL:1:append to the log
   - log.activeSegment.Append(persistentLogSlice)
@@ -10,7 +10,7 @@
   - persistentLogSlice.GetPersistentContents()
 
 
-###Memtable
+### Memtable
 - Assigment:Memtable:1:fill in the 'and' condition
   - keyComparator.Compare(current.forwards[level].key, key) < 0
 
@@ -20,14 +20,14 @@
 - Assignment:Memtable:3:fill in the 'and' condition
   - keyComparator.Compare(current.forwards[level].key, key) < 0 
 
-###Bloom filter
+### Bloom filter
 - Assignment:Bloom filter:1:set bit
   - bloomFilter.store.SetBit(bytePosition, mask)
 
 - Assignment:Bloom filter:2:check the bit
   - bloomFilter.store.GetByte(bytePosition)&mask == 0
 
-###SSTable
+### SSTable
 - Assignment:SSTable:1:get all key value pairs
   - memTable.AllKeyValues()
 
@@ -43,7 +43,7 @@
 - Assignment:SSTable:5:read at the offset obtained after completing - Assignment:SSTable:4
     - ssTable.readAt(keyOffset)
 
-###Concurrency
+### Concurrency
 - Assignment:Concurrency:1:init the executor. Init should create a goroutine to "continuously" read from a request channel
     - executor.init()
 
@@ -56,7 +56,7 @@
 - Assignment:Concurrency:4:execute the multiGet request and send the response back
     - multiGetRequest.ResponseChannel <- executor.workSpace.multiGet(multiGetRequest.Keys)
 
-###Transaction
+### Transaction
 - Assignment:Transaction:1:add the key/value to the batch
     - txn.batch.add(key, value)
 
