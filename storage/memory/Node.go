@@ -26,7 +26,7 @@ func (node *Node) Put(key model.Slice, value model.Slice, keyComparator comparat
 	positions := make([]*Node, len(node.forwards))
 
 	for level := len(node.forwards) - 1; level >= 0; level-- {
-		for current.forwards[level] != nil {
+		for current.forwards[level] != nil && keyComparator.Compare(current.forwards[level].key, key) < 0 {
 			//Assigment:Memtable:1:fill in the 'and' condition
 			current = current.forwards[level]
 		}
@@ -35,7 +35,7 @@ func (node *Node) Put(key model.Slice, value model.Slice, keyComparator comparat
 
 	current = current.forwards[0]
 	if current == nil || keyComparator.Compare(current.key, key) != 0 {
-		newLevel := 0
+		newLevel := levelGenerator.Generate()
 		//Assignment:Memtable:2:generate new level
 		newNode := NewNode(key, value, newLevel)
 		for level := 0; level < newLevel; level++ {
@@ -91,7 +91,7 @@ func (node *Node) nodeMatching(key model.Slice, keyComparator comparator.KeyComp
 	current := node
 	for level := len(node.forwards) - 1; level >= 0; level-- {
 		//Assignment:Memtable:3:fill in the 'and' condition
-		for current.forwards[level] != nil {
+		for current.forwards[level] != nil && keyComparator.Compare(current.forwards[level].key, key) < 0 {
 			current = current.forwards[level]
 		}
 	}

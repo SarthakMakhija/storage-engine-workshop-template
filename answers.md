@@ -11,15 +11,20 @@
 
 
 ### Memtable
-- Assigment:Memtable:1:fill in the 'and' condition
-  - keyComparator.Compare(current.forwards[level].key, key) < 0
+- Assigment:Memtable:1:fill in the 'if' condition
+   - if _, ok := inMemoryMap.keyValues[keyAsString]; ok {
+       return false
+     }
 
-- Assignment:Memtable:2:generate new level
-  - levelGenerator.Generate()
-
-- Assignment:Memtable:3:fill in the 'and' condition
-  - keyComparator.Compare(current.forwards[level].key, key) < 0 
-
+- Assignment:Memtable:2:Perform get
+   - if value, ok := inMemoryMap.keyValues[keyAsString]; ok {
+          return model.GetResult{
+            Key:    key,
+            Value:  value,
+            Exists: true,
+         }
+     }
+   
 ### Bloom filter
 - Assignment:Bloom filter:1:set bit
   - bloomFilter.store.SetBit(bytePosition, mask)
