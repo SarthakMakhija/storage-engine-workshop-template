@@ -25,13 +25,6 @@ func (inMemoryMap *InMemoryMap) Put(key model.Slice, value model.Slice) bool {
 
 func (inMemoryMap *InMemoryMap) Get(key model.Slice) model.GetResult {
 	//Assigment:Memtable:2:Perform get
-	if value, ok := inMemoryMap.keyValues[key.AsString()]; ok {
-		return model.GetResult{
-			Key:    key,
-			Value:  value,
-			Exists: true,
-		}
-	}
 	return model.GetResult{
 		Key:    key,
 		Value:  model.NilSlice(),
